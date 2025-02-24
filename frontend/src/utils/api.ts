@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Supplier, PaginatedResponse, Quote } from '../types/index';
 
 // Create an instance of Axios with a base URL pointing to the API server
 const axiosInstance = axios.create({
@@ -52,17 +53,22 @@ export async function signInUser(
 }
 
 // Fetch the list of suppliers from the API
-export async function fetchSuppliers(authToken: string, page: number = 1) {
+export async function fetchSuppliers(
+  authToken: string,
+  page: number = 1
+): Promise<PaginatedResponse<Supplier>> {
   try {
-    //authentication is required to access the data from the API.
     const headers = {
       Authorization: `Token ${authToken}`,
     };
 
-    const response = await axiosInstance.get('/api/v1/suppliers/', {
-      headers,
-      params: { page },
-    });
+    const response = await axiosInstance.get<PaginatedResponse<Supplier>>(
+      '/api/v1/suppliers/',
+      {
+        headers,
+        params: { page },
+      }
+    );
 
     return response.data;
   } catch (error) {
@@ -72,21 +78,27 @@ export async function fetchSuppliers(authToken: string, page: number = 1) {
 }
 
 // Fetch the list of quotes from the API
-export async function fetchQuotes(authToken: string, page: number = 1) {
+export async function fetchQuotes(
+  authToken: string,
+  page: number = 1
+): Promise<PaginatedResponse<Quote>> {
   try {
     const headers = {
       Authorization: `Token ${authToken}`,
     };
 
-    const response = await axiosInstance.get('/api/v1/quotes/', {
-      headers,
-      params: { page },
-    });
+    const response = await axiosInstance.get<PaginatedResponse<Quote>>(
+      '/api/v1/quotes/',
+      {
+        headers,
+        params: { page },
+      }
+    );
 
     return response.data;
   } catch (error) {
-    console.error('Failed to fetch suppliers:', error);
-    throw new Error('Failed to fetch suppliers');
+    console.error('Failed to fetch quotes:', error);
+    throw new Error('Failed to fetch quotes');
   }
 }
 
@@ -112,5 +124,74 @@ export async function fetchSupplierDetail(
   } catch (error) {
     console.error('Failed to fetch supplier detail:', error);
     throw new Error('Failed to fetch supplier detail');
+  }
+}
+
+// Create an instance of Axios with a base URL pointing to the API server
+const axiosProductInstance = axios.create({
+  baseURL: 'http://localhost:5000', // Update this to your backend URL
+});
+
+// Fetch the list of products from the API
+export async function fetchProducts() {
+  try {
+    const response = await axiosProductInstance.get('/api/products');
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch products:', error);
+    throw new Error('Failed to fetch products');
+  }
+}
+
+// Fetch a single product by ID from the API
+export async function fetchProductById(id: number) {
+  try {
+    const response = await axiosProductInstance.get(`/api/products/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch product:', error);
+    throw new Error('Failed to fetch product');
+  }
+}
+
+// Insert a new product into the database via the API
+export async function insertProduct(data: {
+  product_name: string;
+  product_price: number;
+}) {
+  try {
+    const response = await axiosProductInstance.post('/api/products', data);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to insert product:', error);
+    throw new Error('Failed to insert product');
+  }
+}
+
+// Update a product in the database via the API
+export async function updateProductById(
+  id: number,
+  data: { product_name: string; product_price: number }
+) {
+  try {
+    const response = await axiosProductInstance.put(
+      `/api/products/${id}`,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to update product:', error);
+    throw new Error('Failed to update product');
+  }
+}
+
+// Delete a product from the database via the API
+export async function deleteProductById(id: number) {
+  try {
+    const response = await axiosProductInstance.delete(`/api/products/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to delete product:', error);
+    throw new Error('Failed to delete product');
   }
 }

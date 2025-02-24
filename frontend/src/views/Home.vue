@@ -2,6 +2,7 @@
   <main
     class="overflow-hidden h-screen flex flex-col gap-3 items-center justify-center sm:flex-row"
   >
+    <!-- Left section with image and button for Suppliers -->
     <div class="text-center sliding-left relative">
       <img
         src="../assets/images/farmer-market.png"
@@ -16,6 +17,7 @@
         </button>
       </RouterLink>
     </div>
+    <!-- Right section with image and button for Quotes -->
     <div class="text-center md:flex-col sliding-right relative">
       <img
         src="../assets/images/farmer-market-2.png"
@@ -34,9 +36,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 
-// After a second, remove the 'hidden' class to trigger the transitions
+/**
+ * After a second, remove the 'hidden' class to trigger the transitions
+ * This function is executed when the component is mounted.
+ */
 onMounted(() => {
   setTimeout(() => {
     const elements = document.querySelectorAll(
@@ -50,11 +55,13 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* Initial state for button transition */
 .button-transition {
   opacity: 0;
   transition: opacity 0.5s;
 }
 
+/* Keyframes for sliding in from the left */
 @keyframes slide-in-left {
   0% {
     transform: translateX(
@@ -66,6 +73,7 @@ onMounted(() => {
   }
 }
 
+/* Keyframes for sliding in from the right */
 @keyframes slide-in-right {
   0% {
     transform: translateX(100%);
@@ -77,6 +85,7 @@ onMounted(() => {
   }
 }
 
+/* Keyframes for button slide-in */
 @keyframes button-slide-in {
   0% {
     opacity: 0;

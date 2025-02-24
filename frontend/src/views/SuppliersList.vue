@@ -27,19 +27,7 @@ import { useRouter } from 'vue-router';
 import { getAuthToken, fetchSuppliers } from '../utils/api';
 import SuppliersListItem from '../components/SuppliersListItem.vue';
 import LoadingSpinner from '../utils/LoadingSpinner.vue';
-
-interface Supplier {
-  id: string;
-  name: string;
-  description: string;
-}
-
-interface PaginatedResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: Supplier[];
-}
+import { Supplier, PaginatedResponse } from '../types/index';
 
 const suppliers = ref<Supplier[]>([]); // suppliers is a reactive reference to an array of Supplier objects.
 
@@ -55,7 +43,7 @@ const loadMoreSuppliers = async () => {
   if (!authToken) return;
   isLoading.value = true;
   try {
-    const response: PaginatedResponse = await fetchSuppliers(
+    const response: PaginatedResponse<Supplier> = await fetchSuppliers(
       authToken,
       nextPage
     );

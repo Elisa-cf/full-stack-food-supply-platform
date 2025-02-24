@@ -1,12 +1,12 @@
 import db from '../config/database.js';
 
 // Get all products
-export const getProducts = async result => {
+export const getProducts = async () => {
   try {
     const [results] = await db.query('SELECT * FROM product');
-    result(null, results);
+    return results;
   } catch (err) {
-    result(err, null);
+    throw new Error('Failed to fetch products');
   }
 };
 
@@ -24,12 +24,12 @@ export const getProductById = async (id, result) => {
 };
 
 // Insert product into database
-export const insertProduct = async (data, result) => {
+export const insertProduct = async data => {
   try {
     const [results] = await db.query('INSERT INTO product SET ?', [data]);
-    result(null, results);
+    return results;
   } catch (err) {
-    result(err, null);
+    throw new Error('Failed to insert product');
   }
 };
 
@@ -40,21 +40,21 @@ export const updateProductById = async (data, id, result) => {
       'UPDATE product SET product_name = ?, product_price = ? WHERE product_id = ?',
       [data.product_name, data.product_price, id]
     );
-    result(null, results);
+    return results;
   } catch (err) {
     result(err, null);
   }
 };
 
 // Delete product from database
-export const deleteProductById = async (id, result) => {
+export const deleteProductById = async id => {
   try {
     const [results] = await db.query(
       'DELETE FROM product WHERE product_id = ?',
       [id]
     );
-    result(null, results);
+    return results;
   } catch (err) {
-    result(err, null);
+    throw new Error('Failed to delete product');
   }
 };

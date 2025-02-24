@@ -54,17 +54,12 @@ import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { fetchSupplierDetail } from '../utils/api';
 import LoadingSpinner from '../utils/LoadingSpinner.vue';
+import { Supplier } from '../types/index';
 
 // Check if an authentication token exists in session storage
 const authToken: string | null = sessionStorage.getItem('authToken');
 if (!authToken) {
   console.error('No authentication token found in sessionStorage.');
-}
-
-interface Supplier {
-  id: string;
-  name: string;
-  description: string;
 }
 
 const supplier = ref<Supplier | null>(null); // supplier is a reactive reference that can hold an object of type Supplier or a null value.
