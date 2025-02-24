@@ -1,5 +1,6 @@
 <template>
   <div class="flex justify-center py-20">
+    <!-- Loading spinner to indicate loading state -->
     <LoadingSpinner :isLoading="isLoading" v-if="isLoading" />
 
     <div
@@ -9,6 +10,7 @@
       <ul
         class="grid grid-cols-1 gap-2 xs:grid-cols-2 xs:gap-2 xs:gap-x-4 lg:gap-x-8 items-center"
       >
+        <!-- Loop through the suppliers and display each supplier -->
         <SuppliersListItem
           v-for="supplier in suppliers"
           :key="supplier.id"
@@ -16,6 +18,7 @@
           :viewSupplierDetail="viewSupplierDetail"
         />
       </ul>
+      <!-- Load more button to fetch more suppliers -->
       <button @click="loadMoreSuppliers" v-if="hasMore">Load More</button>
     </div>
   </div>
@@ -29,8 +32,10 @@ import SuppliersListItem from '../components/SuppliersListItem.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
 import { Supplier, PaginatedResponse } from '../types/index';
 
-const suppliers = ref<Supplier[]>([]); // suppliers is a reactive reference to an array of Supplier objects.
+// Reactive reference to store the list of suppliers
+const suppliers = ref<Supplier[]>([]);
 
+// Reactive references for loading state and pagination
 const isLoading = ref<boolean>(true);
 const hasMore = ref<boolean>(true);
 let authToken: string | null = null;
@@ -40,35 +45,57 @@ const router = useRouter();
 
 // Define a function to load more suppliers from the API
 const loadMoreSuppliers = async () => {
+  // Check if the auth token is available
   if (!authToken) return;
+
+  // Set loading state to true
   isLoading.value = true;
   try {
+    // Fetch suppliers from the API using the auth token and current page number
     const response: PaginatedResponse<Supplier> = await fetchSuppliers(
       authToken,
       nextPage
     );
+
+    // Check if the response contains results
     if (response && response.results) {
-      //spread operator is used here to create new arrays and to update the suppliers.value with the merged data from both suppliers.value and response.results.
+      // Update the suppliers array with the new results
       suppliers.value = [...suppliers.value, ...response.results];
+
+      // Increment the page number for the next request
       nextPage++;
+
+      // Update the hasMore state based on the presence of a next page
+
       hasMore.value = !!response.next;
     }
+    // Set loading state to false
     isLoading.value = false;
   } catch (error) {
+    // Log any errors that occur during the API request
     console.error('Failed to fetch suppliers:', error);
+
+    // Set loading state to false
     isLoading.value = false;
   }
 };
 
-// Define a function to navigate to the supplier detail page using the id parameter
-const viewSupplierDetail = (id: string) => {
+/**
+ * Function to navigate to the supplier detail page using the id parameter
+ * This function uses the router to navigate to the supplier detail page
+ */ const viewSupplierDetail = (id: string) => {
   router.push(`/supplier/${id}`);
 };
 
-// Use the onMounted hook to authenticate the user and load initial suppliers
+/**
+ * Use the onMounted hook to authenticate the user and load initial suppliers
+ */
 onMounted(async () => {
+  // Authenticate the user and get the auth token
   authToken = await getAuthToken('username', 'password');
+  // Store the auth token in session storage
   sessionStorage.setItem('authToken', authToken);
+  // Load the initial set of quotes
   await loadMoreSuppliers();
 });
 </script>

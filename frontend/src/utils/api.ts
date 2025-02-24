@@ -6,7 +6,11 @@ const axiosInstance = axios.create({
   baseURL: 'https://february-21.herokuapp.com',
 });
 
-//add new user to the api endpoint with only username and password. Don't need to specify the type Promise since it's mainly an action (registering a user) rather than returning specific data.
+/**
+ * Register a new user with the provided username and password.
+ * @param username - The username of the new user.
+ * @param password - The password of the new user.
+ */
 export async function registerNewUser(username: string, password: string) {
   try {
     const response = await axiosInstance.post('/api/v1/users/', {
@@ -20,7 +24,12 @@ export async function registerNewUser(username: string, password: string) {
   }
 }
 
-//create a new authentication token to the api endopoint for the new user created
+/**
+ * Send a request to retrieve an authentication token for the user with the provided username and password.
+ * @param username - The username of the user.
+ * @param password - The password of the user.
+ * @returns The authentication token.
+ */
 export async function getAuthToken(
   username: string,
   password: string
@@ -37,22 +46,33 @@ export async function getAuthToken(
   }
 }
 
-// Sign in a user using username and password and retrieving the token of the user
+/**
+ * Sign in a user using username and password and retrieve the authentication token.
+ * @param username - The username of the user.
+ * @param password - The password of the user.
+ * @returns The authentication token.
+ */
 export async function signInUser(
   username: string,
   password: string
 ): Promise<string> {
   try {
+    // calls the getAuthToken function to retrieve the authentication token.
     const authToken = await getAuthToken(username, password);
     console.log('Authentication successful. Token:', authToken);
     return authToken;
   } catch (error) {
     console.error('Sign-in failed:', error);
-    throw new Error('Sign-in failed');
+    throw new Error('Sign-in failed');
   }
 }
 
-// Fetch the list of suppliers from the API
+/**
+ * Fetch the list of suppliers from the API.
+ * @param authToken - The authentication token.
+ * @param page - The page number to fetch.
+ * @returns A paginated response containing the list of suppliers.
+ */
 export async function fetchSuppliers(
   authToken: string,
   page: number = 1
@@ -77,7 +97,12 @@ export async function fetchSuppliers(
   }
 }
 
-// Fetch the list of quotes from the API
+/**
+ * Fetch the list of quotes from the API.
+ * @param authToken - The authentication token.
+ * @param page - The page number to fetch.
+ * @returns A paginated response containing the list of quotes.
+ */
 export async function fetchQuotes(
   authToken: string,
   page: number = 1
@@ -102,13 +127,17 @@ export async function fetchQuotes(
   }
 }
 
-// Fetch details of a specific supplier by ID
+/**
+ * Fetch details of a specific supplier by ID.
+ * @param authToken - The authentication token.
+ * @param supplierId - The ID of the supplier.
+ * @returns The details of the supplier.
+ */
 export async function fetchSupplierDetail(
   authToken: string,
   supplierId: string
 ) {
   try {
-    //authentication is required to access the data from the API.
     const headers = {
       Authorization: `Token ${authToken}`,
     };
@@ -127,12 +156,15 @@ export async function fetchSupplierDetail(
   }
 }
 
-// Create an instance of Axios with a base URL pointing to the API server
+// Create an instance of Axios with a base URL pointing to the API server for products
 const axiosProductInstance = axios.create({
   baseURL: 'http://localhost:5000', // Update this to your backend URL
 });
 
-// Fetch the list of products from the API
+/**
+ * Fetch the list of products from the API.
+ * @returns The list of products.
+ */
 export async function fetchProducts() {
   try {
     const response = await axiosProductInstance.get('/api/products');
@@ -143,7 +175,11 @@ export async function fetchProducts() {
   }
 }
 
-// Fetch a single product by ID from the API
+/**
+ * Fetch a single product by ID from the API.
+ * @param id - The ID of the product.
+ * @returns The details of the product.
+ */
 export async function fetchProductById(id: number) {
   try {
     const response = await axiosProductInstance.get(`/api/products/${id}`);
@@ -154,7 +190,11 @@ export async function fetchProductById(id: number) {
   }
 }
 
-// Insert a new product into the database via the API
+/**
+ * Insert a new product into the database via the API.
+ * @param data - The data of the new product.
+ * @returns The inserted product.
+ */
 export async function insertProduct(data: {
   product_name: string;
   product_price: number;
@@ -168,7 +208,12 @@ export async function insertProduct(data: {
   }
 }
 
-// Update a product in the database via the API
+/**
+ * Update a product in the database via the API.
+ * @param id - The ID of the product.
+ * @param data - The updated data of the product.
+ * @returns The updated product.
+ */
 export async function updateProductById(
   id: number,
   data: { product_name: string; product_price: number }
@@ -185,7 +230,11 @@ export async function updateProductById(
   }
 }
 
-// Delete a product from the database via the API
+/**
+ * Delete a product from the database via the API.
+ * @param id - The ID of the product.
+ * @returns The deleted product.
+ */
 export async function deleteProductById(id: number) {
   try {
     const response = await axiosProductInstance.delete(`/api/products/${id}`);
