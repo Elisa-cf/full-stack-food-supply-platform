@@ -27,7 +27,7 @@
 import { ref, onMounted } from 'vue';
 import { getAuthToken, fetchQuotes } from '../utils/api';
 
-import LoadingSpinner from '../utils/LoadingSpinner.vue';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 import QuotesListItem from '../components/QuotesListItem.vue';
 import { Quote, PaginatedResponse } from '../types/index';
 

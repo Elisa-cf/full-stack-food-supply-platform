@@ -53,7 +53,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { fetchSupplierDetail } from '../utils/api';
-import LoadingSpinner from '../utils/LoadingSpinner.vue';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 import { Supplier } from '../types/index';
 
 // Check if an authentication token exists in session storage

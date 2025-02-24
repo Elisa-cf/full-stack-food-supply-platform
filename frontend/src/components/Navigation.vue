@@ -38,7 +38,7 @@
         <p class="text-blue1 md:text-lg">Log out</p>
         <div class="w-4">
           <img
-            src="../assets/images/log-out.svg"
+            src="../assets/icons/log-out.svg"
             alt="log out logo"
             class="text-yellow1"
           />

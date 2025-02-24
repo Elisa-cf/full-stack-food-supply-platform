@@ -13,7 +13,7 @@
           class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
           @click="handleDeleteProduct(product.product_id)"
         >
-          <img src="@/assets/images/trash.svg" alt="Delete" class="w-4 h-4" />
+          <img src="@/assets/icons/trash.svg" alt="Delete" class="w-4 h-4" />
         </button>
         <!-- Display product name -->
         <h2 class="text-xl font-semibold mb-2">{{ product.product_name }}</h2>

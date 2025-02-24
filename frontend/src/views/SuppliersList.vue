@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center py-20">
-    <LoadingSpinner :isLoading="isLoading" />
+    <LoadingSpinner :isLoading="isLoading" v-if="isLoading" />
 
     <div
       v-if="!isLoading"
@@ -26,7 +26,7 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { getAuthToken, fetchSuppliers } from '../utils/api';
 import SuppliersListItem from '../components/SuppliersListItem.vue';
-import LoadingSpinner from '../utils/LoadingSpinner.vue';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 import { Supplier, PaginatedResponse } from '../types/index';
 
 const suppliers = ref<Supplier[]>([]); // suppliers is a reactive reference to an array of Supplier objects.

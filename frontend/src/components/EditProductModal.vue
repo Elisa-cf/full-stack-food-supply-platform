@@ -11,7 +11,7 @@
         @click="closeModal"
       >
         <img
-          src="@/assets/images/close.svg"
+          src="@/assets/icons/close.svg"
           alt="close modal icon"
           class="w-4 h-4"
         />
