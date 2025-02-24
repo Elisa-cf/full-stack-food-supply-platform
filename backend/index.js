@@ -1,28 +1,28 @@
-//import express
+// Import express
 import express from 'express';
 
-//import cors
+// Import cors
 import cors from 'cors';
 
-//import routes
+// Import routes
 import Router from './routes/productRouter.js';
 
-//init express
+// Initialize express
 const app = express();
 
-//use express json
+// Use express json middleware to parse JSON requests
 app.use(express.json());
 
-//use cors
+// Use cors middleware to enable Cross-Origin Resource Sharing
 app.use(cors());
 
-// Use router
+// Use router for handling API routes
 app.use('/api', Router);
 
 // Define the PORT
 const PORT = process.env.PORT || 5000;
 
-// Start the server
+// Start the server and listen on the defined PORT
 app.listen(PORT, () => {
   console.log(`Server running successfully on port ${PORT}`);
 });
