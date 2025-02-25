@@ -93,20 +93,12 @@ const handleEditProductSubmit = async () => {
       await updateProductById(id, data);
       // Emit the productEdited event
       emits('productEdited');
-      // Close the modal
-      closeModal();
+      // Emit the close event
+      emits('close');
     } catch (error) {
       console.error('Failed to edit product:', error);
     }
   }
-};
-
-/**
- * Function to close the modal
- * This function emits the close event to the parent component
- */
-const closeModal = () => {
-  emits('close');
 };
 </script>
 

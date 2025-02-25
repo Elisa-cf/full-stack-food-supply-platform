@@ -93,8 +93,8 @@ const handleAddProductModalSubmit = async () => {
       productPrice.value = null;
       // Emit the productAdded event
       emits('productAdded');
-      // Close the modal
-      closeModal();
+      // Emit the close modal event
+      emits('close');
     } catch (error) {
       console.error('Failed to add product:', error);
     }

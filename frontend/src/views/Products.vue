@@ -43,6 +43,7 @@ const handleDeleteProduct = async (id: number) => {
     products.value = products.value.filter(
       product => product.product_id !== id
     );
+    //After deleting a product, we reload the products list
     handleFetchProducts();
   } catch (error) {
     console.error('Failed to delete product:', error);
