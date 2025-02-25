@@ -41,9 +41,12 @@
         class="w-auto max-w-sm"
       />
       <div>
-        <div class="bg-yellow1 text-purple2 m-4 p-2 rounded-xl">
-          <p><strong>Name:</strong> {{ supplier?.name }}<br /></p>
-          <p><strong>Description:</strong> {{ supplier?.description }}</p>
+        <div class="bg-yellow1 text-purple2 m-4 p-2 rounded-xl text-center">
+          <p class="text-xl">
+            <strong>{{ supplier?.name }}</strong
+            ><br />
+          </p>
+          <p>{{ supplier?.description }}</p>
         </div>
       </div>
     </div>

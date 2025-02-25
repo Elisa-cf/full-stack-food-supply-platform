@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center py-20">
+  <div class="flex justify-center py-20 bg-grey1">
     <!-- Loading spinner to indicate loading state -->
     <LoadingSpinner :isLoading="isLoading" v-if="isLoading" />
 
@@ -8,7 +8,7 @@
       class="flex flex-col gap-3 w-11/12 mx-auto max-w-4xl justify-center text-purple2"
     >
       <ul
-        class="grid grid-cols-1 gap-2 xs:grid-cols-2 xs:gap-2 xs:gap-x-4 lg:gap-x-8 items-center"
+        class="grid grid-cols-1 gap-8 sm:grid-cols-2 items-center lg:grid-cols-3"
       >
         <!-- Loop through the suppliers and display each supplier -->
         <SuppliersListItem
@@ -16,6 +16,7 @@
           :key="supplier.id"
           :supplier="supplier"
           :viewSupplierDetail="viewSupplierDetail"
+          :randomData="getRandomData()"
         />
       </ul>
       <!-- Load more button to fetch more suppliers -->
@@ -31,7 +32,7 @@ import { getAuthToken, fetchSuppliers } from '../utils/api';
 import SuppliersListItem from '../components/SuppliersListItem.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
 import { Supplier, PaginatedResponse } from '../types/index';
-
+import SupplierRandomData from '../assets/SupplierRandomData';
 // Reactive reference to store the list of suppliers
 const suppliers = ref<Supplier[]>([]);
 
@@ -42,6 +43,12 @@ let authToken: string | null = null;
 let nextPage: number = 1;
 
 const router = useRouter();
+
+// Function to get 1 or 2 random values from SupplierRandomData
+const getRandomData = () => {
+  const shuffled = SupplierRandomData.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, 2);
+};
 
 // Define a function to load more suppliers from the API
 const loadMoreSuppliers = async () => {
@@ -61,6 +68,7 @@ const loadMoreSuppliers = async () => {
     if (response && response.results) {
       // Update the suppliers array with the new results
       suppliers.value = [...suppliers.value, ...response.results];
+      console.log(suppliers.value);
 
       // Increment the page number for the next request
       nextPage++;
