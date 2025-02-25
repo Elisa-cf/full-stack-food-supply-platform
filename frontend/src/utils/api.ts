@@ -17,7 +17,7 @@ export async function registerNewUser(username: string, password: string) {
       username,
       password,
     });
-    console.log('User registered successfully:', response.data);
+    return response.data;
   } catch (error) {
     console.error('User registration failed:', error);
     throw new Error('User registration failed');
@@ -59,7 +59,6 @@ export async function signInUser(
   try {
     // calls the getAuthToken function to retrieve the authentication token.
     const authToken = await getAuthToken(username, password);
-    console.log('Authentication successful. Token:', authToken);
     return authToken;
   } catch (error) {
     console.error('Sign-in failed:', error);
