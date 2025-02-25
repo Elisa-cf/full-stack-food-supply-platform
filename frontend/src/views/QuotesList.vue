@@ -8,7 +8,7 @@
       class="flex flex-col gap-3 w-11/12 mx-auto max-w-4xl justify-center text-purple1"
     >
       <ul
-        class="grid grid-cols-1 gap-2 xs:grid-cols-2 xs:gap-2 xs:gap-x-4 lg:gap-x-8 items-center"
+        class="grid grid-cols-1 gap-2 xs:grid-cols-2 sm:grid-cols-3 xs:gap-2 xs:gap-x-4 lg:gap-x-8 items-center"
       >
         <!-- Loop through the quotes and display each quote -->
         <QuotesListItem
