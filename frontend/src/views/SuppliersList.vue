@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center py-20 bg-grey1">
+  <div class="flex justify-center pt-28 bg-grey1">
     <!-- Loading spinner to indicate loading state -->
     <LoadingSpinner :isLoading="isLoading" v-if="isLoading" />
 

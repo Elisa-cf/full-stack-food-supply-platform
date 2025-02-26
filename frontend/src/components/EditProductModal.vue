@@ -5,11 +5,7 @@
     @click.self="closeModal"
   >
     <div class="relative max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
-      <button
-        type="button"
-        class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-        @click="closeModal"
-      >
+      <button type="button" class="absolute top-2 right-2" @click="closeModal">
         <img
           src="@/assets/icons/close.svg"
           alt="close modal icon"
@@ -19,9 +15,7 @@
       <h2 class="text-2xl font-bold mb-4">Edit Product</h2>
       <form @submit.prevent="handleEditProductSubmit">
         <div class="mb-4">
-          <label for="product_name" class="block text-gray-700"
-            >Product Name</label
-          >
+          <label for="product_name" class="block">Product Name</label>
           <input
             type="text"
             id="product_name"
@@ -31,9 +25,7 @@
           />
         </div>
         <div class="mb-4">
-          <label for="product_price" class="block text-gray-700"
-            >Product Price</label
-          >
+          <label for="product_price" class="block">Product Price</label>
           <input
             type="number"
             id="product_price"

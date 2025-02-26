@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center py-20">
+  <div class="flex justify-center pt-6">
     <!-- Loading spinner to indicate loading state -->
     <LoadingSpinner :isLoading="isLoading" v-if="isLoading" />
     <!-- Button to add a new product, triggers loadProducts when a product is added -->
@@ -10,10 +10,10 @@
     >
       <AddProductBtn @productAdded="handleFetchProducts" />
       <ul
-        class="grid grid-cols-1 gap-2 xs:grid-cols-2 sm:grid-cols-3 xs:gap-2 xs:gap-x-4 lg:gap-x-8 items-center"
+        class="grid grid-cols-1 gap-6 xs:grid-cols-2 sm:grid-cols-3 items-center"
       >
         <!-- List of products, with handlers for deleting and editing products -->
-        <ProductList
+        <ProductListItem
           :products="products"
           @deleteProduct="handleDeleteProduct"
           @productEdited="handleFetchProducts"
@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import AddProductBtn from '../components/AddProductBtn.vue';
-import ProductList from '../components/ProductList.vue';
+import ProductListItem from '../components/ProductListItem.vue';
 import { ref, onMounted } from 'vue';
 import { fetchProducts, deleteProductById } from '../utils/api';
 import { Product } from '../types/index';

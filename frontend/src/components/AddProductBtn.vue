@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="flex justify-end">
     <!-- Button to open the modal for adding a new product -->
     <button
-      class="bg-yellow1 text-white px-4 py-2 my-20 rounded"
+      class="bg-purple5 text-white px-4 py-2 my-20 rounded"
       @click="openModal"
     >
-      Add New Product
+      Add Product
     </button>
     <!-- Modal component for adding a new product -->
     <AddProductModal
