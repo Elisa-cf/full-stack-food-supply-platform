@@ -76,6 +76,14 @@ const productName = ref(props.product.product_name);
 const productPrice = ref(props.product.product_price);
 
 /**
+ * Function to close the modal
+ * This function emits the close event to the parent component
+ */
+const closeModal = () => {
+  emits('close');
+};
+
+/**
  * Function to handle form submission
  * This function updates the product and emits the productEdited event
  */

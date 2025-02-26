@@ -10,7 +10,7 @@
       <ul
         class="grid grid-cols-1 gap-2 xs:grid-cols-2 sm:grid-cols-3 xs:gap-2 xs:gap-x-4 lg:gap-x-8 items-center"
       >
-        <!-- Loop through the quotes and display each quote -->
+        <!-- Loop through the quotes and render the QuotesLIstItem component for each quote -->
         <QuotesListItem
           v-for="quote in quotes"
           :key="quote.id"
@@ -45,7 +45,7 @@ let nextPage: number = 1;
  * This function fetches the quotes and updates the quotes array
  */
 const loadMoreQuotes = async () => {
-  // Check if the auth token is available
+  // Check if the auth token is available to authenticate the request and fetch and load more Quotes
   if (!authToken) return;
 
   // Set loading state to true

@@ -74,6 +74,14 @@ const productName = ref('');
 const productPrice = ref<number | null>(null);
 
 /**
+ * Function to close the modal
+ * This function emits the close event to the parent component
+ */
+const closeModal = () => {
+  emits('close');
+};
+
+/**
  * Function to handle form submission
  * This function inserts a new product and emits the productAdded event
  */
@@ -99,13 +107,6 @@ const handleAddProductModalSubmit = async () => {
       console.error('Failed to add product:', error);
     }
   }
-};
-/**
- * Function to close the modal
- * This function emits the close event to the parent component
- */
-const closeModal = () => {
-  emits('close');
 };
 </script>
 

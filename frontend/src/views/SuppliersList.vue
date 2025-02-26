@@ -10,7 +10,7 @@
       <ul
         class="grid grid-cols-1 gap-8 sm:grid-cols-2 items-center lg:grid-cols-3"
       >
-        <!-- Loop through the suppliers and display each supplier -->
+        <!-- Loop through the suppliers and and render the SupplierLIstItem component for each supplier -->
         <SuppliersListItem
           v-for="supplier in suppliers"
           :key="supplier.id"
@@ -46,13 +46,15 @@ const router = useRouter();
 
 // Function to get 1 or 2 random values from SupplierRandomData
 const getRandomData = () => {
+  // Shuffle the SupplierRandomData by randomly sorting the elements
   const shuffled = SupplierRandomData.sort(() => 0.5 - Math.random());
+  // Return the first 1 or 2 elements from the shuffled array
   return shuffled.slice(0, 2);
 };
 
 // Define a function to load more suppliers from the API
 const loadMoreSuppliers = async () => {
-  // Check if the auth token is available
+  // Check if the auth token is available to authenticate the request to fetch more suppliers
   if (!authToken) return;
 
   // Set loading state to true
@@ -74,6 +76,7 @@ const loadMoreSuppliers = async () => {
       nextPage++;
 
       // Update the hasMore state based on the presence of a next page
+      // hasMore.value is set to true if response.next is truthy
 
       hasMore.value = !!response.next;
     }

@@ -57,7 +57,7 @@ const errMsg = ref<string | null>(null);
 // Get the router instance to navigate programmatically
 const router = useRouter();
 
-// Flag to prevent multiple login attempts
+// Flag to prevent triggering multiple login attempts
 let isUserLogged = false;
 
 /**

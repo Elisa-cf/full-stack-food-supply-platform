@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Supplier, PaginatedResponse, Quote } from '../types/index';
 
-// Create an instance of Axios with a base URL pointing to the API server
+// Create an instance of Axios with a base URL pointing to the external API server
 const axiosInstance = axios.create({
   baseURL: 'https://february-21.herokuapp.com',
 });
@@ -58,6 +58,7 @@ export async function signInUser(
 ): Promise<string> {
   try {
     // calls the getAuthToken function to retrieve the authentication token.
+    // Each time the user logs in, the backend generates a new token.
     const authToken = await getAuthToken(username, password);
     return authToken;
   } catch (error) {
