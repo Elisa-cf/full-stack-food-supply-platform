@@ -1,12 +1,26 @@
 <template>
-  <!-- Button to add a new product, triggers loadProducts when a product is added -->
-  <AddProductBtn @productAdded="handleFetchProducts" />
-  <!-- List of products, with handlers for deleting and editing products -->
-  <ProductList
-    :products="products"
-    @deleteProduct="handleDeleteProduct"
-    @productEdited="handleFetchProducts"
-  />
+  <div class="flex justify-center py-20">
+    <!-- Loading spinner to indicate loading state -->
+    <LoadingSpinner :isLoading="isLoading" v-if="isLoading" />
+    <!-- Button to add a new product, triggers loadProducts when a product is added -->
+
+    <div
+      v-if="!isLoading"
+      class="flex flex-col gap-3 w-11/12 mx-auto max-w-4xl justify-center text-purple1"
+    >
+      <AddProductBtn @productAdded="handleFetchProducts" />
+      <ul
+        class="grid grid-cols-1 gap-2 xs:grid-cols-2 sm:grid-cols-3 xs:gap-2 xs:gap-x-4 lg:gap-x-8 items-center"
+      >
+        <!-- List of products, with handlers for deleting and editing products -->
+        <ProductList
+          :products="products"
+          @deleteProduct="handleDeleteProduct"
+          @productEdited="handleFetchProducts"
+        />
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -15,9 +29,12 @@ import ProductList from '../components/ProductList.vue';
 import { ref, onMounted } from 'vue';
 import { fetchProducts, deleteProductById } from '../utils/api';
 import { Product } from '../types/index';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 
 // Reactive reference to store the list of products
 const products = ref<Product[]>([]);
+
+const isLoading = ref<boolean>(true);
 
 /**
  * Function to load products from the API
@@ -27,6 +44,7 @@ const handleFetchProducts = async () => {
   try {
     const data = await fetchProducts();
     products.value = data;
+    isLoading.value = false;
   } catch (error) {
     console.error('Error loading products:', error);
   }
