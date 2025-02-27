@@ -8,7 +8,7 @@
     <EditProductModal
       :isEditModalOpen="isModalOpen"
       @close="closeModal"
-      @productEdited="handleproductEdited"
+      @productEdited="handleProductEdited"
       :product="props.product"
     />
   </div>
@@ -46,7 +46,7 @@ const closeModal = () => {
  * Function to handle the product edited event
  * This function emits the productEdited event to the parent component
  */
-const handleproductEdited = () => {
+const handleProductEdited = () => {
   emit('productEdited');
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center pt-6">
+  <div class="flex justify-center py-6">
     <!-- Loading spinner to indicate loading state -->
     <LoadingSpinner :isLoading="isLoading" v-if="isLoading" />
     <!-- Button to add a new product, triggers loadProducts when a product is added -->
