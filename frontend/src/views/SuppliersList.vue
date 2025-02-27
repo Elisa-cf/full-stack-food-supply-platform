@@ -1,26 +1,32 @@
 <template>
   <div class="flex justify-center pt-28 pb-12 bg-grey1">
-    <!-- Loading spinner to indicate loading state -->
-    <LoadingSpinner :isLoading="isLoading" v-if="isLoading" />
-
+    <!-- Show the suppliers list -->
     <div
-      v-if="!isLoading"
       class="flex flex-col gap-3 w-11/12 mx-auto max-w-4xl justify-center text-purple2"
     >
-      <ul
-        class="grid grid-cols-1 gap-8 sm:grid-cols-2 items-center lg:grid-cols-3"
+      <!-- Show the loading  spinner inside the list section but before the content -->
+      <LoadingSpinner :isLoading="isLoading" v-if="isLoading" />
+
+      <div
+        class="flex flex-col gap-3 w-11/12 mx-auto max-w-4xl justify-center text-purple2"
       >
-        <!-- Loop through the suppliers and and render the SupplierLIstItem component for each supplier -->
-        <SuppliersListItem
-          v-for="supplier in suppliers"
-          :key="supplier.id"
-          :supplier="supplier"
-          :viewSupplierDetail="viewSupplierDetail"
-          :randomData="getRandomData()"
-        />
-      </ul>
-      <!-- Load more button to fetch more suppliers -->
-      <button @click="loadMoreSuppliers" v-if="hasMore">Load More</button>
+        <ul
+          class="grid grid-cols-1 gap-8 sm:grid-cols-2 items-center lg:grid-cols-3"
+        >
+          <!-- Loop through the suppliers and and render the SupplierLIstItem component for each supplier -->
+          <SuppliersListItem
+            v-for="supplier in suppliers"
+            :key="supplier.id"
+            :supplier="supplier"
+            :viewSupplierDetail="viewSupplierDetail"
+            :randomData="getRandomData()"
+          />
+        </ul>
+        <!-- Load more button to fetch more suppliers -->
+        <button @click="loadMoreSuppliers" v-if="hasMore && !isLoading">
+          Load More
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -58,7 +64,7 @@ const loadMoreSuppliers = async () => {
   if (!authToken) return;
 
   // Set loading state to true
-  isLoading.value = true;
+
   try {
     // Fetch suppliers from the API using the auth token and current page number
     const response: PaginatedResponse<Supplier> = await fetchSuppliers(
@@ -80,14 +86,9 @@ const loadMoreSuppliers = async () => {
 
       hasMore.value = !!response.next;
     }
-    // Set loading state to false
-    isLoading.value = false;
   } catch (error) {
     // Log any errors that occur during the API request
     console.error('Failed to fetch suppliers:', error);
-
-    // Set loading state to false
-    isLoading.value = false;
   }
 };
 
@@ -102,11 +103,13 @@ const loadMoreSuppliers = async () => {
  * Use the onMounted hook to authenticate the user and load initial suppliers
  */
 onMounted(async () => {
+  isLoading.value = true;
   // Authenticate the user and get the auth token
   authToken = await getAuthToken('username', 'password');
   // Store the auth token in session storage
   sessionStorage.setItem('authToken', authToken);
   // Load the initial set of quotes
   await loadMoreSuppliers();
+  isLoading.value = false;
 });
 </script>

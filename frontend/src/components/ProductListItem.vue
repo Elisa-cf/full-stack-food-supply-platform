@@ -3,7 +3,7 @@
   <div
     v-for="product in props.products"
     :key="product.product_id"
-    class="bg-white rounded-2xl rounded-bl-none shadow-2xl overflow-hidden max-h-60 group"
+    class="bg-white rounded-2xl rounded-bl-none shadow-2xl max-h-60 group overflow-hidden"
   >
     <img
       src="@/assets/images/basket.jpg"

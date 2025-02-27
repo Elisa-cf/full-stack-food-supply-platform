@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="props.isEditModalOpen"
-    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+    class="absolute bottom-0 right-0 flex items-center justify-center z-50 text-purple1 modal"
     @click.self="closeModal"
   >
     <div class="relative max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
@@ -12,15 +12,15 @@
           class="w-4 h-4"
         />
       </button>
-      <h2 class="text-2xl font-bold mb-4">Edit Product</h2>
+      <h2 class="text-xl font-bold mb-4">Edit Product</h2>
       <form @submit.prevent="handleEditProductSubmit">
-        <div class="mb-4">
+        <div class="mb-2">
           <label for="product_name" class="block">Product Name</label>
           <input
             type="text"
             id="product_name"
             v-model="productName"
-            class="w-full px-3 py-2 border rounded"
+            class="w-full h-6 px-3 py-1 border rounded"
             required
           />
         </div>
@@ -30,7 +30,7 @@
             type="number"
             id="product_price"
             v-model="productPrice"
-            class="w-full px-3 py-2 border rounded"
+            class="w-full px-3 py-1 border rounded"
             required
           />
         </div>
@@ -102,4 +102,8 @@ const handleEditProductSubmit = async () => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.modal {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+</style>

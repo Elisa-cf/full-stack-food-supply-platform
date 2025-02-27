@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex justify-end">
     <!-- Button to open the modal for updating a product -->
     <button class="bg-yellow1 text-white px-4 py-2 rounded" @click="openModal">
       Update Product
